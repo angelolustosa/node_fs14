@@ -1,0 +1,25 @@
+// sem body
+POST http://localhost:5005/produto
+
+### // separa as requisições
+
+//com body
+POST http://localhost:5005/produto
+Content-Type: application/json
+
+{
+    "titulo": "Produto 1",
+    "descricao": "Tenis Nike Air",
+    "preco": 450.20
+}
+
+###
+GET http://localhost:5005/produtos-status
+
+
+###
+GET http://localhost:5005/produtos
+
+###
+
+GET http://localhost:5005/produto/18121409-6fe1-466e-9a9e-7307f5ce2ef9
