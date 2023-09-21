@@ -10,7 +10,7 @@ const server = fastify()
 const db = new DatabaseMemory()
 
 //sem request body
-/* server.post('/produto', (req, res) => { //res = reply (fastify)
+server.post('/produto-sem-body', (req, res) => { //res = reply (fastify)
     // Criar um novo produto
     db.create({
         titulo: "Produto 1",
@@ -23,7 +23,7 @@ const db = new DatabaseMemory()
     console.log(produtos);
 
     return res.status(201).send() //201 - CREATED
-}) */
+})
 
 // com request body
 server.post('/produto', (req, res) => { //res = reply (fastify)
@@ -43,16 +43,25 @@ server.post('/produto', (req, res) => { //res = reply (fastify)
 })
 
 // deu erro
-server.get('/produtos-status', (req, res) => {
+/* server.get('/produtos-status', (req, res) => {
     const produtos = db.listAll()
 
     //return res.status(200).send(produtos)
 
     return res.code(200).json({ data: produtos })
-})
+}) */
 
 server.get('/produtos', (e) => {
     const produtos = db.listAll()
+
+    return produtos //por padrão o get retorna o 200
+})
+
+server.get('/produtos-search', (req, res) => {
+    const search = req.query.search
+    console.log('query', search)
+
+    const produtos = db.listAll(search)
 
     return produtos //por padrão o get retorna o 200
 })
@@ -63,6 +72,26 @@ server.get('/produto/:id', (req, res) => {
     const produto = db.getById(produtoId)
 
     return res.status(200).send(produto)
+})
+
+server.put('/produto/:id', (req, res) => {
+    const produtoId = req.params.id
+    //const { titulo, descricao, preco } = req.body
+
+    const produto = db.update(produtoId, req.body)
+
+    //return res.status(204).send(produto) //sucesso, mas sem conteúdo
+    return res.status(200).send(produto) //sucesso, mas sem conteúdo
+})
+
+server.delete('/produto/:id', (req, res) => {
+    const produtoId = req.params.id
+    //const { titulo, descricao, preco } = req.body
+    
+    const produto = db.delete(produtoId)
+
+    //return res.status(204).send(produto) //sucesso, mas sem conteúdo
+    return res.status(200).send(produto) //sucesso, mas sem conteúdo
 })
 
 server.listen({

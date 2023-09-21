@@ -1,5 +1,5 @@
 // sem body
-POST http://localhost:5005/produto
+POST http://localhost:5005/produto-sem-body
 
 ### // separa as requisições
 
@@ -8,7 +8,7 @@ POST http://localhost:5005/produto
 Content-Type: application/json
 
 {
-    "titulo": "Produto 1",
+    "titulo": "Produto 2 node",
     "descricao": "Tenis Nike Air",
     "preco": 450.20
 }
@@ -22,4 +22,19 @@ GET http://localhost:5005/produtos
 
 ###
 
-GET http://localhost:5005/produto/18121409-6fe1-466e-9a9e-7307f5ce2ef9
+GET http://localhost:5005/produto/bbc72e9c-5249-4764-aa31-b46c77738c2b
+
+###
+
+
+PUT http://localhost:5005/produto/bbc72e9c-5249-4764-aa31-b46c77738c2b
+Content-Type: application/json
+
+{
+    "titulo": "Produto 1 updated",
+    "descricao": "Tenis Nike Air Updated",
+    "preco": 900.40
+}
+
+###
+GET http://localhost:5005/produtos-search?search=react
